@@ -1,31 +1,42 @@
-document.getElementById('apod-form').addEventListener('submit', async function(e) {
+document.getElementById('apod-form').addEventListener('submit', async function (e) {
     e.preventDefault();
+  
     const date = document.getElementById('date').value;
     const apiKey = sessionStorage.getItem('apiKey') || prompt('Enter your NASA API Key:');
     sessionStorage.setItem('apiKey', apiKey);
+  
+    const resultDiv = document.getElementById('apod-result');
+  
+    // Show loading message
+    resultDiv.innerHTML = `<p>🚀 Fetching your space photo...</p>`;
   
     try {
       const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`);
       const data = await response.json();
   
       if (data.media_type === 'image') {
-        document.getElementById('apod-result').innerHTML = `
-          <h2>${data.title}</h2>
-          <img src="${data.url}" alt="${data.title}" />
-          <p>${data.explanation}</p>
+        resultDiv.innerHTML = `
+          <div class="fade-in">
+            <h2>${data.title}</h2>
+            <img src="${data.url}" alt="${data.title}" />
+            <p>${data.explanation}</p>
+          </div>
         `;
       } else if (data.media_type === 'video') {
-        document.getElementById('apod-result').innerHTML = `
-          <h2>${data.title}</h2>
-          <iframe src="${data.url}" frameborder="0" allowfullscreen></iframe>
-          <p>${data.explanation}</p>
+        resultDiv.innerHTML = `
+          <div class="fade-in">
+            <h2>${data.title}</h2>
+            <iframe src="${data.url}" frameborder="0" allowfullscreen></iframe>
+            <p>${data.explanation}</p>
+          </div>
         `;
       } else {
-        document.getElementById('apod-result').innerHTML = `<p>Media type not supported.</p>`;
+        resultDiv.innerHTML = `<p class="fade-in">⚠️ Media type not supported for this date.</p>`;
       }
     } catch (error) {
       console.error('Error fetching the APOD:', error);
-      document.getElementById('apod-result').innerHTML = `<p>There was an error fetching the data. Please try again later.</p>`;
+      resultDiv.innerHTML = `<p class="fade-in">❌ Something went wrong. Please check your API key or try a different date.</p>`;
     }
   });
+  
   
