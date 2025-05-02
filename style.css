@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  input, button {
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    font-size: 1rem;
+  }
+  
+  #apod-result {
+    text-align: center;
+  }
+  
+  #apod-result img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1rem;
+  }
+  
+  
