@@ -1,4 +1,3 @@
-// === DOM ELEMENTS ===
 const tabs = document.querySelectorAll('.tab-btn');
 const sections = document.querySelectorAll('.tab-section');
 const resultDiv = document.getElementById('apod-result');
@@ -6,11 +5,10 @@ const carouselTrack = document.getElementById('carousel-track');
 const favoritesList = document.getElementById('favorites-list');
 const feedbackPopup = document.getElementById('feedback-popup');
 
-// === API KEY HANDLING ===
 let apiKey = localStorage.getItem('apiKey') || prompt("Enter your NASA API Key:");
 localStorage.setItem('apiKey', apiKey);
 
-// === TAB SWITCHING ===
+// Tab logic
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(btn => btn.classList.remove('active'));
@@ -22,14 +20,12 @@ tabs.forEach(tab => {
   });
 });
 
-// === FEEDBACK ===
 function showFeedback(message = "Added to Favorites") {
   feedbackPopup.textContent = message;
   feedbackPopup.classList.add('visible');
   setTimeout(() => feedbackPopup.classList.remove('visible'), 2000);
 }
 
-// === LOAD APOD ===
 async function fetchAPOD(date) {
   resultDiv.innerHTML = `<div class="spinner"></div>`;
   try {
@@ -37,12 +33,9 @@ async function fetchAPOD(date) {
     const data = await res.json();
     if (data.code) throw new Error(data.msg);
 
-    let media = '';
-    if (data.media_type === 'image') {
-      media = `<img src="${data.url}" alt="${data.title}" />`;
-    } else if (data.media_type === 'video') {
-      media = `<iframe src="${data.url}" frameborder="0" allowfullscreen></iframe>`;
-    }
+    const media = data.media_type === 'image'
+      ? `<img src="${data.url}" alt="${data.title}" />`
+      : `<iframe src="${data.url}" frameborder="0" allowfullscreen></iframe>`;
 
     resultDiv.innerHTML = `
       <a href="${data.hdurl || data.url}" target="_blank">Download Image</a>
@@ -57,18 +50,15 @@ async function fetchAPOD(date) {
     `;
   } catch (err) {
     resultDiv.innerHTML = `<p>Error: ${err.message}</p>`;
-    console.error(err);
   }
 }
 
-// === LOAD HOMEPAGE ===
 async function loadHome() {
   const today = new Date().toISOString().split('T')[0];
   fetchAPOD(today);
   loadCarousel();
 }
 
-// === CAROUSEL ===
 async function loadCarousel() {
   carouselTrack.innerHTML = '';
   for (let i = 0; i < 7; i++) {
@@ -99,11 +89,9 @@ async function loadCarousel() {
   }
 }
 
-// === FAVORITES ===
 function saveFavoriteByData(data) {
   const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-  const exists = favorites.some(f => f.url === data.url);
-  if (!exists) {
+  if (!favorites.some(f => f.url === data.url)) {
     favorites.push(data);
     localStorage.setItem('favorites', JSON.stringify(favorites));
     showFeedback();
@@ -133,7 +121,6 @@ function removeFavoriteByUrl(url) {
   renderFavorites();
 }
 
-// === SEARCH ===
 const searchForm = document.getElementById('search-form');
 const searchQueryInput = document.getElementById('search-query');
 const searchResults = document.getElementById('search-results');
@@ -160,7 +147,6 @@ if (searchForm) {
       items.forEach(item => {
         const img = item.links?.[0]?.href;
         const title = item.data?.[0]?.title || 'Untitled';
-        const desc = item.data?.[0]?.description || '';
         const link = item.href || '#';
 
         const card = document.createElement('div');
@@ -184,5 +170,4 @@ if (searchForm) {
   });
 }
 
-// === INIT ===
 window.addEventListener('DOMContentLoaded', loadHome);

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore Astronomy</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Unica+One&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="stars"></div>
 
   <nav class="main-nav">
-    <h1>🌌 Explore Astronomy</h1>
+    <h1>Explore Astronomy</h1>
     <div class="nav-tabs">
       <button class="tab-btn active" data-tab="home">Home</button>
       <button class="tab-btn" data-tab="search">Search</button>
@@ -30,23 +30,31 @@
         <!-- JS populates this -->
       </div>
 
+      <div class="info-row">
+        <section class="facts">
+          <div>
+            <h4>+20,000</h4>
+            <p>Photos Archived</p>
+          </div>
+          <div>
+            <h4>Since 1995</h4>
+            <p>NASA's APOD Initiative</p>
+          </div>
+          <div>
+            <h4>Daily</h4>
+            <p>New Image Every Day</p>
+          </div>
+        </section>
+
+        <section id="about" class="about">
+          <h3>About This Project</h3>
+          <p>This site showcases NASA’s Astronomy Picture of the Day and allows users to explore space photography, save favorites, and search by date or keyword. Built with HTML, CSS, and JavaScript.</p>
+          <p>Created by Anam Vaziri and Ami Ayusya • Powered by <a href="https://api.nasa.gov/" target="_blank">NASA APIs</a></p>
+        </section>
+      </div>
+
       <h3 class="section-heading">Recent Images</h3>
       <div class="carousel-track" id="carousel-track"></div>
-
-      <section class="facts">
-        <div>
-          <h4>+20,000</h4>
-          <p>Photos Archived</p>
-        </div>
-        <div>
-          <h4>Since 1995</h4>
-          <p>NASA's APOD Initiative</p>
-        </div>
-        <div>
-          <h4>Daily</h4>
-          <p>Updated with a New Image</p>
-        </div>
-      </section>
     </section>
 
     <section id="search" class="tab-section">
