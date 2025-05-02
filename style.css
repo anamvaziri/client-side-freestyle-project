@@ -24,7 +24,7 @@
   }
   
   body {
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Dm Sans', sans-serif;
     background-color: var(--bg);
     color: var(--text);
     padding: 2rem;
@@ -224,6 +224,8 @@
   #search-results {
     display: grid;
     gap: 1rem;
+        margin-bottom: 1.25rem;
+      
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     margin-top: 1rem;
   }
