@@ -3,30 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🌌 NASA APOD Viewer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>NASA APOD Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="https://www.nasa.gov/sites/default/files/images/nasaLogo-570x450.png">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>🚀 NASA Astronomy Picture of the Day</h1>
-      <p class="subtitle">Explore the cosmos, one day at a time</p>
+      <h1>NASA Astronomy Picture of the Day</h1>
+      <p>Select a date to discover a new view of the universe.</p>
     </header>
 
     <form id="apod-form">
       <input type="date" id="date" name="date" required />
-      <button type="submit">🌠 Get Picture</button>
+      <button type="submit">View Image</button>
     </form>
 
-    <section id="apod-result" class="card"></section>
-
-    <footer>
-      <p>Made with 💫 by Anam • Powered by <a href="https://api.nasa.gov/" target="_blank">NASA API</a></p>
-    </footer>
+    <div id="apod-result" class="card"></div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
