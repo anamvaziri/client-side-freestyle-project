@@ -1,14 +1,19 @@
+// === DOM ELEMENTS ===
 const tabs = document.querySelectorAll('.tab-btn');
 const sections = document.querySelectorAll('.tab-section');
 const resultDiv = document.getElementById('apod-result');
 const carouselTrack = document.getElementById('carousel-track');
 const favoritesList = document.getElementById('favorites-list');
 const feedbackPopup = document.getElementById('feedback-popup');
+const searchForm = document.getElementById('search-form');
+const searchQueryInput = document.getElementById('search-query');
+const searchResults = document.getElementById('search-results');
 
+// === API KEY ===
 let apiKey = localStorage.getItem('apiKey') || prompt("Enter your NASA API Key:");
 localStorage.setItem('apiKey', apiKey);
 
-// Tab logic
+// === TAB SWITCHING ===
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(btn => btn.classList.remove('active'));
@@ -20,12 +25,19 @@ tabs.forEach(tab => {
   });
 });
 
+// === INITIALIZE ===
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('[data-tab="home"]').click();
+});
+
+// === FEEDBACK ===
 function showFeedback(message = "Added to Favorites") {
   feedbackPopup.textContent = message;
   feedbackPopup.classList.add('visible');
   setTimeout(() => feedbackPopup.classList.remove('visible'), 2000);
 }
 
+// === APOD VIEWER ===
 async function fetchAPOD(date) {
   resultDiv.innerHTML = `<div class="spinner"></div>`;
   try {
@@ -53,12 +65,14 @@ async function fetchAPOD(date) {
   }
 }
 
+// === HOMEPAGE ===
 async function loadHome() {
   const today = new Date().toISOString().split('T')[0];
   fetchAPOD(today);
   loadCarousel();
 }
 
+// === CAROUSEL ===
 async function loadCarousel() {
   carouselTrack.innerHTML = '';
   for (let i = 0; i < 7; i++) {
@@ -89,6 +103,7 @@ async function loadCarousel() {
   }
 }
 
+// === FAVORITES ===
 function saveFavoriteByData(data) {
   const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
   if (!favorites.some(f => f.url === data.url)) {
@@ -121,10 +136,7 @@ function removeFavoriteByUrl(url) {
   renderFavorites();
 }
 
-const searchForm = document.getElementById('search-form');
-const searchQueryInput = document.getElementById('search-query');
-const searchResults = document.getElementById('search-results');
-
+// === SEARCH ===
 if (searchForm) {
   searchForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -170,4 +182,3 @@ if (searchForm) {
   });
 }
 
-window.addEventListener('DOMContentLoaded', loadHome);
