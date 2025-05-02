@@ -38,19 +38,17 @@ tabs.forEach(tab => {
     sections.forEach(sec => sec.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById(tab.dataset.tab).classList.add('active');
-    if (tab.dataset.tab === 'home') loadCarousel();
     if (tab.dataset.tab === 'favorites') renderFavorites();
   });
 });
 
-// === FEEDBACK POPUP ===
+// === FEEDBACK ===
 function showFeedback(msg = "Added to Favorites") {
   feedbackPopup.textContent = msg;
   feedbackPopup.classList.add('visible');
   setTimeout(() => feedbackPopup.classList.remove('visible'), 2000);
 }
 
-// === FAVORITES ===
 function saveFavoriteByData(data) {
   const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
   const exists = favorites.some(f => f.url === data.url);
@@ -172,6 +170,9 @@ async function loadCarousel() {
   }
 }
 
+// Load carousel immediately
+window.addEventListener('DOMContentLoaded', loadCarousel);
+
 // === SEARCH ===
 searchForm.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -215,3 +216,4 @@ searchForm.addEventListener('submit', async (e) => {
     searchResults.innerHTML = `<p>Error retrieving results. Please try again later.</p>`;
   }
 });
+

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NASA APOD Explorer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <meta property="og:title" content="NASA APOD Viewer" />
   <meta property="og:description" content="Explore space through NASA's Astronomy Picture of the Day." />
@@ -65,19 +65,27 @@
     </section>
 
     <section id="search" class="tab-section">
-      <h2>Search NASA Media</h2>
-      <form id="search-form" class="form-row">
-        <input type="text" id="search-query" placeholder="e.g., Mars, galaxy, astronaut..." required />
-        <button type="submit">Search</button>
+      <h2>Search NASA Image Library</h2>
+      <form id="search-form">
+        <div class="form-row">
+          <input type="text" id="search-query" placeholder="e.g. Mars, Galaxy, Saturn" required />
+          <button type="submit">Search</button>
+        </div>
       </form>
       <div id="search-results" class="favorites-grid">
-        <!-- Search results will be displayed here -->
+        <!-- Search results will appear here -->
       </div>
     </section>
   </div>
 
-  <script src="script.js"></script>
   <div id="feedback-popup">Added to Favorites</div>
 
+  <script src="script.js"></script>
+  <script>
+    // Load carousel immediately on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadCarousel();
+    });
+  </script>
 </body>
 </html>
