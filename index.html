@@ -11,6 +11,7 @@
   <meta property="og:image" content="https://apod.nasa.gov/apod/image/2401/NGC2264_Hubble_960.jpg" />
 </head>
 <body>
+  <div id="stars"></div>
   <div class="container">
     <header>
       <h1>NASA Astronomy Picture of the Day</h1>
@@ -18,15 +19,25 @@
     </header>
 
     <form id="apod-form">
-      <input type="date" id="date" name="date" required />
-      <button type="submit">View Image</button>
-      <button type="button" id="random-btn">Surprise Me</button>
-      <button type="button" id="toggle-theme">Toggle Theme</button>
+      <div class="form-row">
+        <input type="date" id="date" name="date" required />
+        <button type="submit">View Image</button>
+      </div>
+      <div class="button-row">
+        <button type="button" id="random-btn">Surprise Me</button>
+        <button type="button" id="toggle-theme">Switch to Light Theme</button>
+      </div>
     </form>
 
     <a id="download-btn" style="display: none;" download target="_blank">Download Image</a>
 
     <div id="apod-result" class="card"></div>
+
+    <section id="about">
+      <h3>About This Project</h3>
+      <p>This website uses NASA’s public Astronomy Picture of the Day API to showcase daily space photography and exploration. Built with HTML, CSS, and JavaScript for educational and creative purposes.</p>
+      <p>Created by Anam Vaziri • Powered by <a href="https://api.nasa.gov/" target="_blank">NASA API</a></p>
+    </section>
   </div>
 
   <script src="script.js"></script>

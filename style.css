@@ -29,15 +29,16 @@
     color: var(--text);
     min-height: 100vh;
     padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     transition: background 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+    position: relative;
   }
   
   .container {
     max-width: 800px;
-    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
   }
   
   header {
@@ -57,15 +58,21 @@
   }
   
   form {
+    margin-bottom: 2rem;
+  }
+  
+  .form-row,
+  .button-row {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
   
-  input[type="date"], button {
-    padding: 0.6rem 1rem;
+  input[type="date"],
+  button {
+    padding: 0.6rem 1.1rem;
     font-size: 1rem;
     border-radius: var(--radius);
     border: none;
@@ -92,12 +99,10 @@
   
   #download-btn {
     display: none;
-    margin: 0 auto 1.5rem;
-    background-color: transparent;
+    margin: 0 auto 2rem;
     color: var(--accent);
-    text-decoration: underline;
     text-align: center;
-    display: block;
+    text-decoration: underline;
     font-size: 1rem;
   }
   
@@ -128,6 +133,27 @@
     line-height: 1.6;
   }
   
+  #about {
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  
+  #about h3 {
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  
+  #about a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  
+  #about a:hover {
+    text-decoration: underline;
+  }
+  
   .spinner {
     border: 4px solid rgba(255, 255, 255, 0.1);
     border-left-color: var(--accent);
@@ -145,5 +171,29 @@
   
   @keyframes spin {
     to { transform: rotate(360deg); }
+  }
+  
+  #stars {
+    background: url('https://raw.githubusercontent.com/KyleAMathews/react-parallax/master/examples/stars.jpg') repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 300%;
+    z-index: 0;
+    animation: starScroll 120s linear infinite;
+    opacity: 0.1;
+  }
+  
+  @keyframes starScroll {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-500px, -500px); }
+  }
+  
+  @media (max-width: 600px) {
+    .form-row, .button-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
   

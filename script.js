@@ -5,18 +5,21 @@ const randomBtn = document.getElementById('random-btn');
 const toggleThemeBtn = document.getElementById('toggle-theme');
 const dateInput = document.getElementById('date');
 
-// Set today as default date
+// Set today's date and valid range
 const today = new Date().toISOString().split('T')[0];
 dateInput.value = today;
 dateInput.max = today;
 dateInput.min = "1995-06-16";
 
-// Load theme preference
+// Load theme from localStorage
 if (localStorage.getItem('theme') === 'light') {
   document.body.classList.add('light');
+  toggleThemeBtn.textContent = "Switch to Dark Theme";
+} else {
+  toggleThemeBtn.textContent = "Switch to Light Theme";
 }
 
-// Fetch and display APOD
+// Fetch APOD
 async function fetchAPOD(date) {
   const apiKey = localStorage.getItem('apiKey') || prompt('Enter your NASA API Key:');
   localStorage.setItem('apiKey', apiKey);
@@ -32,7 +35,6 @@ async function fetchAPOD(date) {
     if (data.code) throw new Error(data.msg);
 
     let media = '';
-
     if (data.media_type === 'image') {
       media = `<img src="${data.url}" alt="${data.title}" />`;
       downloadBtn.href = data.hdurl || data.url;
@@ -53,13 +55,13 @@ async function fetchAPOD(date) {
   }
 }
 
-// On form submit
+// Form submission
 form.addEventListener('submit', e => {
   e.preventDefault();
   fetchAPOD(dateInput.value);
 });
 
-// On random button click
+// Random date generator
 randomBtn.addEventListener('click', () => {
   const start = new Date(1995, 5, 16).getTime();
   const end = new Date().getTime();
@@ -69,8 +71,9 @@ randomBtn.addEventListener('click', () => {
   fetchAPOD(randomDate);
 });
 
-// Toggle theme
+// Theme toggle
 toggleThemeBtn.addEventListener('click', () => {
-  document.body.classList.toggle('light');
-  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  const isLight = document.body.classList.toggle('light');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  toggleThemeBtn.textContent = isLight ? "Switch to Dark Theme" : "Switch to Light Theme";
 });
