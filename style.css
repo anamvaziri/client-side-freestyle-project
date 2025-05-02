@@ -133,13 +133,13 @@
     background: var(--panel);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 1rem;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 260px;
+    max-width: 260px;
     flex: 0 0 auto;
   }
   
@@ -171,11 +171,13 @@
   .favorite-card h4,
   .search-card h4 {
     font-size: 1rem;
+    margin: 0.75 rem 0 0.5rem;
+    line-height: 1.3;
     margin-bottom: 0.5rem;
     height: 2.4em;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+  } 
   
   .search-card a {
     font-size: 0.9rem;
@@ -185,9 +187,9 @@
   }
   
   .card-btn {
-    margin-top: auto;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
     background-color: var(--accent);
     color: var(--bg);
     border: none;
