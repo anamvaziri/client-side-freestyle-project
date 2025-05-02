@@ -23,6 +23,7 @@ dateInput.min = "1995-06-16";
 let apiKey = localStorage.getItem('apiKey') || prompt("Enter your NASA API Key:");
 localStorage.setItem('apiKey', apiKey);
 
+// === THEME ===
 function setTheme(isLight) {
   document.body.classList.toggle('light', isLight);
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
@@ -42,7 +43,48 @@ tabs.forEach(tab => {
   });
 });
 
-// === FETCH SINGLE APOD ===
+// === FEEDBACK POPUP ===
+function showFeedback(msg = "Added to Favorites") {
+  feedbackPopup.textContent = msg;
+  feedbackPopup.classList.add('visible');
+  setTimeout(() => feedbackPopup.classList.remove('visible'), 2000);
+}
+
+// === FAVORITES ===
+function saveFavoriteByData(data) {
+  const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+  const exists = favorites.some(f => f.url === data.url);
+  if (!exists) {
+    favorites.push(data);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    showFeedback();
+  }
+}
+
+function removeFavoriteByUrl(url) {
+  let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+  favorites = favorites.filter(f => f.url !== url);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  renderFavorites();
+}
+
+function renderFavorites() {
+  favoritesList.innerHTML = '';
+  const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+  favorites.forEach(data => {
+    const card = document.createElement('div');
+    card.classList.add('favorite-card');
+    card.innerHTML = `
+      <img src="${data.url}" alt="${data.title}" />
+      <h4>${data.title}</h4>
+      <p>${data.date || ''}</p>
+      <button class="card-btn" onclick="removeFavoriteByUrl('${data.url}')">Remove</button>
+    `;
+    favoritesList.appendChild(card);
+  });
+}
+
+// === FETCH APOD ===
 async function fetchAPOD(date) {
   resultDiv.innerHTML = `<div class="spinner"></div>`;
   resultDiv.style.display = 'block';
@@ -130,46 +172,6 @@ async function loadCarousel() {
   }
 }
 
-// === FAVORITES ===
-function showFeedback(message = "Added to Favorites") {
-  feedbackPopup.textContent = message;
-  feedbackPopup.classList.add('visible');
-  setTimeout(() => feedbackPopup.classList.remove('visible'), 2000);
-}
-
-function saveFavoriteByData(data) {
-  const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-  const exists = favorites.some(f => f.url === data.url);
-  if (!exists) {
-    favorites.push(data);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    showFeedback();
-  }
-}
-
-function renderFavorites() {
-  favoritesList.innerHTML = '';
-  const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-  favorites.forEach(data => {
-    const card = document.createElement('div');
-    card.classList.add('favorite-card');
-    card.innerHTML = `
-      <img src="${data.url}" alt="${data.title}" />
-      <h4>${data.title}</h4>
-      <p>${data.date || ''}</p>
-      <button class="card-btn" onclick="removeFavoriteByUrl('${data.url}')">Remove</button>
-    `;
-    favoritesList.appendChild(card);
-  });
-}
-
-function removeFavoriteByUrl(url) {
-  let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-  favorites = favorites.filter(f => f.url !== url);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  renderFavorites();
-}
-
 // === SEARCH ===
 searchForm.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -192,14 +194,13 @@ searchForm.addEventListener('submit', async (e) => {
     items.forEach(item => {
       const img = item.links?.[0]?.href;
       const title = item.data?.[0]?.title || 'Untitled';
-      const link = item.href || '#';
 
       const card = document.createElement('div');
       card.classList.add('search-card');
       card.innerHTML = `
         <img src="${img}" alt="${title}">
         <h4>${title}</h4>
-        <a href="${link}" target="_blank">View Full</a>
+        <a href="${img}" target="_blank">View Full</a>
         <button class="card-btn" onclick='saveFavoriteByData(${JSON.stringify({
           title: title,
           url: img,
@@ -208,6 +209,7 @@ searchForm.addEventListener('submit', async (e) => {
       `;
       searchResults.appendChild(card);
     });
+
   } catch (err) {
     console.error("Search error:", err);
     searchResults.innerHTML = `<p>Error retrieving results. Please try again later.</p>`;
