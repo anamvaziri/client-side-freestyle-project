@@ -1,18 +1,18 @@
 /* === GLOBAL STYLES === */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Century+Gothic&display=swap');
 
 :root {
-  --bg: #0b0c10;
-  --panel: #1f232e;
-  --accent: #00d0ffb0;
-  --text: #eaeaea;
-  --muted: #a9b0c2;
+  --bg: #000000;
+  --panel: #1a1a1a;
+  --accent: #2F2BF3;
+  --text: #ffffff;
+  --muted: #626262;
   --radius: 12px;
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 body {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Century Gothic', sans-serif;
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -21,8 +21,9 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-family: 'Century Gothic', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.5px;
   color: var(--text);
 }
 
@@ -40,7 +41,7 @@ main {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background: var(--panel);
+  background: var(--bg);
   box-shadow: var(--shadow);
 }
 
@@ -100,6 +101,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  color: var(--text);
 }
 .carousel-card img {
   width: 100%;
@@ -124,7 +126,7 @@ main {
   font-size: 0.9rem;
   background: var(--accent);
   border: none;
-  color: var(--bg);
+  color: var(--text);
   border-radius: var(--radius);
   cursor: pointer;
   transition: background 0.2s ease;
@@ -132,7 +134,7 @@ main {
 }
 
 .card-btn:hover {
-  background: #00b4d8;
+  background: #1c1aff;
 }
 
 /* INFO ROW */
@@ -159,6 +161,7 @@ main {
 .about {
   max-width: 500px;
   color: var(--text);
+  text-align: left;
 }
 .about h3 {
   font-size: 1.4rem;
@@ -168,6 +171,7 @@ main {
 .about p {
   font-size: 1rem;
   line-height: 1.5;
+  color: var(--muted);
 }
 
 /* FEEDBACK */
