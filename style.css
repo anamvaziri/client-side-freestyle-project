@@ -341,7 +341,10 @@
     color: var(--accent);
     font-size: 0.9rem;
     text-decoration: underline;
+    display: inline-block;
+    margin-bottom: 0.5rem;
   }
+  
 /* CONSISTENT CARD STYLING FOR CAROUSEL, SEARCH, FAVORITES */
 .carousel-card,
 .search-card,
@@ -378,20 +381,24 @@
 }
 
 .card-btn {
-  margin-top: auto;
-  padding: 0.4rem;
-  font-size: 0.9rem;
-  background-color: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.card-btn:hover {
-  background-color: var(--accent);
-  color: var(--bg);
-}
+    margin-top: 0.75rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.9rem;
+    background-color: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  
+  .card-btn:hover {
+    background-color: #34d4bd;
+    transform: translateY(-1px);
+  }
+
 
 /* Feedback Popup */
 #feedback-popup {
