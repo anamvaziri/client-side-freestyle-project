@@ -1,18 +1,18 @@
-/* === GLOBAL === */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700&display=swap');
+/* === GLOBAL STYLES === */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
 
 :root {
-  --bg: #0a0c10;
-  --panel: #12151c;
-  --accent: #91d1f0;
-  --text: #f8f9fa;
-  --muted: #9aa0b3;
+  --bg: #0b0c10;
+  --panel: #1f232e;
+  --accent: #00d0ffb0;
+  --text: #eaeaea;
+  --muted: #a9b0c2;
   --radius: 12px;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 body {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -22,7 +22,8 @@ body {
 
 h1, h2, h3, h4 {
   font-weight: 700;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
+  color: var(--text);
 }
 
 main {
@@ -31,23 +32,6 @@ main {
   margin: 0 auto;
   position: relative;
   z-index: 2;
-}
-
-#stars {
-  background: url('https://raw.githubusercontent.com/KyleAMathews/react-parallax/master/examples/stars.jpg') repeat;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300%;
-  height: 300%;
-  z-index: 0;
-  animation: starScroll 120s linear infinite;
-  opacity: 0.05;
-}
-
-@keyframes starScroll {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-500px, -500px); }
 }
 
 /* NAV */
@@ -61,7 +45,7 @@ main {
 }
 
 .main-nav h1 {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   color: var(--accent);
 }
 
@@ -88,44 +72,12 @@ main {
   color: var(--bg);
 }
 
-/* HERO */
-.hero {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-.hero h2 {
-  font-size: 2.8rem;
-  margin-bottom: 0.5rem;
-}
-.hero p {
-  font-size: 1.1rem;
-  color: var(--muted);
-}
-
 /* TABS */
 .tab-section {
   display: none;
 }
 .tab-section.active {
   display: block;
-}
-
-/* APOD */
-#apod-result {
-  background: var(--panel);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 1.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-#apod-result img,
-#apod-result iframe {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: var(--radius);
-  margin-bottom: 1rem;
 }
 
 /* CAROUSEL */
@@ -180,7 +132,65 @@ main {
 }
 
 .card-btn:hover {
-  background: #a3e5ea;
+  background: #00b4d8;
+}
+
+/* INFO ROW */
+.info-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.facts div h4 {
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.facts div p {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.about {
+  max-width: 500px;
+  color: var(--text);
+}
+.about h3 {
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.about p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* FEEDBACK */
+#feedback-popup {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--panel);
+  color: var(--accent);
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 10;
+}
+
+#feedback-popup.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* SEARCH */
@@ -229,64 +239,9 @@ main {
   justify-content: space-between;
 }
 
-/* FACTS + ABOUT */
-.info-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-.facts, .about {
-  flex: 1 1 45%;
-}
-.facts div h4 {
-  font-size: 2rem;
-  color: var(--accent);
-}
-.facts div p {
-  font-size: 1rem;
-  color: var(--muted);
-}
-.about p {
-  font-size: 1rem;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-/* FEEDBACK */
-#feedback-popup {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--panel);
-  color: var(--accent);
-  padding: 0.75rem 1.25rem;
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 10;
-}
-
-#feedback-popup.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-@media (max-width: 600px) {
-  .carousel-track {
-    gap: 0.75rem;
-  }
+@media (max-width: 768px) {
   .info-row {
     flex-direction: column;
     align-items: center;
-  }
-  .tab-btn {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.75rem;
   }
 }

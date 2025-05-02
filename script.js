@@ -8,6 +8,7 @@ const feedbackPopup = document.getElementById('feedback-popup');
 const searchForm = document.getElementById('search-form');
 const searchQueryInput = document.getElementById('search-query');
 const searchResults = document.getElementById('search-results');
+const dateInput = document.getElementById('date');
 
 // === API KEY ===
 let apiKey = localStorage.getItem('apiKey') || prompt("Enter your NASA API Key:");
@@ -181,4 +182,5 @@ if (searchForm) {
     }
   });
 }
+
 
