@@ -24,7 +24,7 @@
   }
   
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     background-color: var(--bg);
     color: var(--text);
     padding: 2rem;
@@ -138,6 +138,9 @@
     flex-direction: column;
     justify-content: space-between;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
+    min-width: 220px;
+    max-width: 220px;
+    flex: 0 0 auto;
   }
   
   .carousel-card:hover,

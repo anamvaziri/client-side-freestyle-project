@@ -170,7 +170,6 @@ async function loadCarousel() {
   }
 }
 
-// Load carousel immediately
 window.addEventListener('DOMContentLoaded', loadCarousel);
 
 // === SEARCH ===
@@ -216,4 +215,3 @@ searchForm.addEventListener('submit', async (e) => {
     searchResults.innerHTML = `<p>Error retrieving results. Please try again later.</p>`;
   }
 });
-
