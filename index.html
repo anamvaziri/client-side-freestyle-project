@@ -1,78 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore Astronomy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Unica+One&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-  <div id="stars"></div>
 
-  <nav class="main-nav">
+<body>
+  <header>
     <h1>Explore Astronomy</h1>
-    <div class="nav-tabs">
+    <nav>
       <button class="tab-btn active" data-tab="home">Home</button>
       <button class="tab-btn" data-tab="search">Search</button>
       <button class="tab-btn" data-tab="favorites">Favorites</button>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <main>
+    <!-- Home Tab -->
     <section id="home" class="tab-section active">
-      <header class="hero">
-        <h2>Discover the Universe</h2>
-        <p>View NASA's Astronomy Picture of the Day and browse recent cosmic captures</p>
-      </header>
-
-      <div class="apod-box" id="apod-result">
-        <!-- JS populates this -->
+      <div class="intro-text">
+        <h2 class="main-heading">DISCOVER THE UNIVERSE</h2>
+        <p class="sub-heading">View NASA’s Astronomy Picture of the Day and browse recent cosmic captures</p>
       </div>
 
-      <div class="info-row">
-        <section class="facts">
+      <div id="apod-result" class="apod-card"></div>
+
+      <div id="about-section">
+        <div class="stats">
           <div>
-            <h4>+20,000</h4>
+            <h3>+20,000</h3>
             <p>Photos Archived</p>
           </div>
           <div>
-            <h4>Since 1995</h4>
+            <h3>SINCE 1995</h3>
             <p>NASA's APOD Initiative</p>
           </div>
           <div>
-            <h4>Daily</h4>
+            <h3>DAILY</h3>
             <p>New Image Every Day</p>
           </div>
-        </section>
-
-        <section id="about" class="about">
+        </div>
+        <div class="about">
           <h3>About This Project</h3>
           <p>This site showcases NASA’s Astronomy Picture of the Day and allows users to explore space photography, save favorites, and search by date or keyword. Built with HTML, CSS, and JavaScript.</p>
           <p>Created by Anam Vaziri and Ami Ayusya • Powered by <a href="https://api.nasa.gov/" target="_blank">NASA APIs</a></p>
-        </section>
+        </div>
       </div>
 
-      <h3 class="section-heading">Recent Images</h3>
-      <div class="carousel-track" id="carousel-track"></div>
+      <h3 class="carousel-heading">Recent Images</h3>
+      <div class="carousel-container">
+        <div id="carousel-track" class="carousel-track"></div>
+      </div>
     </section>
 
+    <!-- Search Tab -->
     <section id="search" class="tab-section">
-      <h2>Search NASA Image Library</h2>
       <form id="search-form">
-        <input type="text" id="search-query" placeholder="Search galaxies, planets, etc." required>
+        <input type="text" id="search-query" placeholder="Search NASA images..." required>
         <button type="submit">Search</button>
       </form>
-      <div id="search-results"></div>
+      <div id="search-results" class="card-grid"></div>
     </section>
 
+    <!-- Favorites Tab -->
     <section id="favorites" class="tab-section">
-      <h2>Your Favorite Images</h2>
-      <div id="favorites-list" class="favorites-grid"></div>
+      <div id="favorites-list" class="card-grid"></div>
     </section>
   </main>
 
-  <div id="feedback-popup"></div>
+  <div id="feedback-popup">Added to Favorites</div>
+
   <script src="script.js"></script>
 </body>
+
 </html>
