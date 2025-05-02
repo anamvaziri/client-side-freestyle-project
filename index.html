@@ -3,90 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NASA APOD Explorer</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Explore Astronomy</title>
   <link rel="stylesheet" href="style.css" />
-  <meta property="og:title" content="NASA APOD Viewer" />
-  <meta property="og:description" content="Explore space through NASA's Astronomy Picture of the Day." />
-  <meta property="og:image" content="https://apod.nasa.gov/apod/image/2401/NGC2264_Hubble_960.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="stars"></div>
-  <div class="container">
-    <nav class="nav-tabs">
-      <button class="tab-btn active" data-tab="home">Home</button>
-      <button class="tab-btn" data-tab="viewer">Astronomy Picture of the Day</button>
-      <button class="tab-btn" data-tab="favorites">Favorites</button>
-      <button class="tab-btn" data-tab="search">Search</button>
-    </nav>
 
+  <nav class="main-nav">
+    <h1>🌌 Explore Astronomy</h1>
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="home">Home</button>
+      <button class="tab-btn" data-tab="search">Search</button>
+      <button class="tab-btn" data-tab="favorites">Favorites</button>
+    </div>
+  </nav>
+
+  <main>
     <section id="home" class="tab-section active">
-      <header>
-        <h1>NASA Astronomy Picture of the Day Explorer</h1>
-        <p>Discover space imagery and insights through NASA's Astronomy Picture of the Day and more.</p>
+      <header class="hero">
+        <h2>Discover the Universe</h2>
+        <p>View NASA's Astronomy Picture of the Day and browse recent cosmic captures</p>
       </header>
 
-      <section id="carousel">
-        <h2>Recent Images</h2>
-        <div id="carousel-track" class="carousel-track">
-          <!-- Recent APODs will be dynamically inserted here -->
-        </div>
-      </section>
-
-      <section id="about" style="text-align: center; max-width: 720px; margin: 2rem auto 0 auto;">
-        <h3>About This Project</h3>
-        <p>This site showcases NASA’s Astronomy Picture of the Day and allows users to explore space photography, save favorites, and search by date or keyword. Built with HTML, CSS, and JavaScript.</p>
-        <p>Created by Anam Vaziri and Ami Ayusya • Powered by <a href="https://api.nasa.gov/" target="_blank">NASA APIs</a></p>
-      </section>
-      
-    </section>
-
-    <section id="viewer" class="tab-section">
-      <form id="apod-form">
-        <div class="form-row">
-          <input type="date" id="date" name="date" required />
-          <button type="submit">View Image</button>
-        </div>
-        <div class="button-row">
-          <button type="button" id="random-btn">Surprise Me</button>
-          <button type="button" id="toggle-theme">Switch to Light Theme</button>
-        </div>
-      </form>
-
-      <a id="download-btn" style="display: none;" download target="_blank">Download Image</a>
-
-      <div id="apod-result" class="card"></div>
-    </section>
-
-    <section id="favorites" class="tab-section">
-      <h2>Saved Favorites</h2>
-      <div id="favorites-list" class="favorites-grid">
-        <!-- Bookmarked APODs will be displayed here -->
+      <div class="apod-box" id="apod-result">
+        <!-- JS populates this -->
       </div>
+
+      <h3 class="section-heading">Recent Images</h3>
+      <div class="carousel-track" id="carousel-track"></div>
+
+      <section class="facts">
+        <div>
+          <h4>+20,000</h4>
+          <p>Photos Archived</p>
+        </div>
+        <div>
+          <h4>Since 1995</h4>
+          <p>NASA's APOD Initiative</p>
+        </div>
+        <div>
+          <h4>Daily</h4>
+          <p>Updated with a New Image</p>
+        </div>
+      </section>
     </section>
 
     <section id="search" class="tab-section">
       <h2>Search NASA Image Library</h2>
       <form id="search-form">
-        <div class="form-row">
-          <input type="text" id="search-query" placeholder="e.g. Mars, Galaxy, Saturn" required />
-          <button type="submit">Search</button>
-        </div>
+        <input type="text" id="search-query" placeholder="Search galaxies, planets, etc." required>
+        <button type="submit">Search</button>
       </form>
-      <div id="search-results" class="favorites-grid">
-        <!-- Search results will appear here -->
-      </div>
+      <div id="search-results"></div>
     </section>
-  </div>
 
-  <div id="feedback-popup">Added to Favorites</div>
+    <section id="favorites" class="tab-section">
+      <h2>Your Favorite Images</h2>
+      <div id="favorites-list" class="favorites-grid"></div>
+    </section>
+  </main>
 
+  <div id="feedback-popup"></div>
   <script src="script.js"></script>
-  <script>
-    // Load carousel immediately on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      loadCarousel();
-    });
-  </script>
 </body>
 </html>

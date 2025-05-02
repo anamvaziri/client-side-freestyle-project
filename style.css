@@ -1,69 +1,104 @@
+/* === GLOBAL === */
 :root {
-    --bg: #0d0d0f;
-    --panel: #16161a;
-    --accent: #5eead4;
-    --text: #e4e4e7;
-    --muted: #71717a;
+    --bg: #0b0d17;
+    --panel: #11131e;
+    --accent: #36e2ec;
+    --text: #f1f5f9;
+    --muted: #64748b;
     --radius: 12px;
-    --shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
-  }
-  
-  body.light {
-    --bg: #f5f5f5;
-    --panel: #ffffff;
-    --accent: #0e7490;
-    --text: #18181b;
-    --muted: #555;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   }
   
   body {
-    font-family: 'Dm Sans', sans-serif;
-    background-color: var(--bg);
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0;
+    background: var(--bg);
     color: var(--text);
-    padding: 2rem;
-    min-height: 100vh;
     overflow-x: hidden;
-    transition: background 0.3s ease, color 0.3s ease;
-    position: relative;
+    line-height: 1.6;
   }
   
-  .container {
-    max-width: 1100px;
+  main {
+    padding: 2rem 1rem;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
   }
   
+  #stars {
+    background: url('https://raw.githubusercontent.com/KyleAMathews/react-parallax/master/examples/stars.jpg') repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 300%;
+    z-index: 0;
+    animation: starScroll 120s linear infinite;
+    opacity: 0.08;
+  }
+  
+  @keyframes starScroll {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-500px, -500px); }
+  }
+  
+  /* === NAVIGATION === */
+  .main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+  
+  .main-nav h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  
   .nav-tabs {
     display: flex;
-    justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
   }
   
   .tab-btn {
-    background: var(--panel);
-    color: var(--text);
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-weight: 600;
+    background: none;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    padding: 0.5rem 1rem;
     border-radius: var(--radius);
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s ease;
   }
   
-  .tab-btn.active {
-    background-color: var(--accent);
+  .tab-btn.active,
+  .tab-btn:hover {
+    background: var(--accent);
     color: var(--bg);
   }
   
+  /* === HERO === */
+  .hero {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .hero h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+  
+  /* === SECTIONS === */
   .tab-section {
     display: none;
   }
@@ -72,145 +107,43 @@
     display: block;
   }
   
-  header {
+  /* === APOD BOX === */
+  #apod-result {
+    background: var(--panel);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
     text-align: center;
     margin-bottom: 2rem;
   }
   
-  h1 {
-    font-size: 2.4rem;
-    font-weight: 600;
-  }
-  
-  header p {
-    margin-top: 0.5rem;
-    color: var(--muted);
-    font-size: 1.1rem;
-  }
-  
-  form {
-    margin-bottom: 2rem;
-  }
-  
-  .form-row,
-  .button-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+  #apod-result img,
+  #apod-result iframe {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
     margin-bottom: 1rem;
   }
   
-  input[type="date"],
-  input[type="text"],
-  button {
-    padding: 0.6rem 1rem;
+  #apod-result h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  
+  #apod-result p {
     font-size: 1rem;
-    border-radius: var(--radius);
-    border: 1px solid var(--muted);
-    background-color: var(--panel);
     color: var(--text);
-  }
-  
-  button {
-    background-color: var(--accent);
-    color: var(--bg);
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-  
-  button:hover {
-    background-color: #34d4bd;
-    transform: translateY(-1px);
-  }
-  
-  .card,
-  .carousel-card,
-  .favorite-card,
-  .search-card {
-    background: var(--panel);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    min-width: 260px;
-    max-width: 260px;
-    flex: 0 0 auto;
-  }
-  
-  .carousel-card:hover,
-  .favorite-card:hover,
-  .search-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  }
-  
-  .carousel-card img,
-  .favorite-card img,
-  .search-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: var(--radius);
-    margin-bottom: 0.75rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .carousel-card img:hover,
-  .favorite-card img:hover,
-  .search-card img:hover {
-    transform: scale(1.02);
-  }
-  
-  .carousel-card h4,
-  .favorite-card h4,
-  .search-card h4 {
-    font-size: 1rem;
-    margin: 0.75 rem 0 0.5rem;
-    line-height: 1.3;
-    margin-bottom: 0.5rem;
-    height: 2.4em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  } 
-  
-  .search-card a {
-    font-size: 0.9rem;
-    color: var(--accent);
-    text-decoration: underline;
-    margin-bottom: 0.5rem;
-  }
-  
-  .card-btn {
+    text-align: left;
     margin-top: 1rem;
-    padding: 0.6rem 1rem;
-    font-size: 0.95rem;
-    background-color: var(--accent);
-    color: var(--bg);
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.2s ease, transform 0.15s ease;
   }
   
-  .card-btn:hover {
-    background-color: #34d4bd;
-    transform: translateY(-1px);
-  }
-  
+  /* === CAROUSEL === */
   .carousel-track {
     display: flex;
     overflow-x: auto;
-    scroll-behavior: smooth;
     gap: 1rem;
     padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
   }
   
   .carousel-track::-webkit-scrollbar {
@@ -222,16 +155,112 @@
     border-radius: 10px;
   }
   
-  .favorites-grid,
+  .carousel-card {
+    background: var(--panel);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    min-width: 240px;
+    max-width: 240px;
+    padding: 1rem;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .carousel-card img {
+    width: 100%;
+    border-radius: var(--radius);
+    margin-bottom: 0.75rem;
+  }
+  
+  .carousel-card h4 {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+  }
+  
+  .card-btn {
+    margin-top: auto;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    background: var(--accent);
+    border: none;
+    color: var(--bg);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .card-btn:hover {
+    background: #29c8d9;
+  }
+  
+  /* === FACTS === */
+  .facts {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  
+  .facts div h4 {
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+  
+  .facts div p {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  
+  /* === SEARCH === */
+  #search-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+  
+  #search-query {
+    padding: 0.6rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--muted);
+    background: var(--panel);
+    color: var(--text);
+    width: 300px;
+  }
+  
   #search-results {
     display: grid;
     gap: 1rem;
-        margin-bottom: 1.25rem;
-      
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    margin-top: 1rem;
   }
   
+  .search-card {
+    background: var(--panel);
+    padding: 1rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  
+  /* === FAVORITES === */
+  .favorites-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  
+  .favorite-card {
+    background: var(--panel);
+    padding: 1rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  
+  /* === FEEDBACK === */
   #feedback-popup {
     position: fixed;
     bottom: 1.5rem;
@@ -254,77 +283,12 @@
     pointer-events: auto;
   }
   
-  #stars {
-    background: url('https://raw.githubusercontent.com/KyleAMathews/react-parallax/master/examples/stars.jpg') repeat;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 300%;
-    height: 300%;
-    z-index: 0;
-    animation: starScroll 120s linear infinite;
-    opacity: 0.06;
-  }
-  
-  @keyframes starScroll {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-500px, -500px); }
-  }
-  
-  .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-left-color: var(--accent);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 2rem auto;
-  }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-  
   @media (max-width: 600px) {
-    .form-row, .button-row {
+    .carousel-track {
+      gap: 0.75rem;
+    }
+    .facts {
       flex-direction: column;
-      align-items: stretch;
+      align-items: center;
     }
   }
-  #apod-result {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: var(--panel);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  #apod-result img,
-  #apod-result iframe {
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--radius);
-    margin-bottom: 1rem;
-  }
-  
-  #apod-result h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
-  
-  #apod-result p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-top: 0.5rem;
-    color: var(--text);
-    text-align: left;
-    width: 100%;
-  }
-  
-  
