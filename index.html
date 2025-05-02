@@ -3,40 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NASA APOD Viewer</title>
+  <title>NASA APOD Explorer</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <meta property="og:title" content="NASA APOD Viewer" />
-  <meta property="og:description" content="Explore space, one photo at a time." />
+  <meta property="og:description" content="Explore space through NASA's Astronomy Picture of the Day." />
   <meta property="og:image" content="https://apod.nasa.gov/apod/image/2401/NGC2264_Hubble_960.jpg" />
 </head>
 <body>
   <div id="stars"></div>
   <div class="container">
-    <header>
-      <h1>NASA Astronomy Picture of the Day</h1>
-      <p>Select a date to discover a new view of the universe.</p>
-    </header>
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="home">Home</button>
+      <button class="tab-btn" data-tab="viewer">APOD Viewer</button>
+      <button class="tab-btn" data-tab="favorites">Favorites</button>
+      <button class="tab-btn" data-tab="search">Search</button>
+    </nav>
 
-    <form id="apod-form">
-      <div class="form-row">
-        <input type="date" id="date" name="date" required />
-        <button type="submit">View Image</button>
+    <section id="home" class="tab-section active">
+      <header>
+        <h1>NASA APOD Explorer</h1>
+        <p>Discover space imagery and insights through NASA's Astronomy Picture of the Day and more.</p>
+      </header>
+
+      <section id="carousel">
+        <h2>Recent Images</h2>
+        <div id="carousel-track" class="carousel-track">
+          <!-- Recent APODs will be dynamically inserted here -->
+        </div>
+      </section>
+
+      <section id="about">
+        <h3>About This Project</h3>
+        <p>This site showcases NASA’s Astronomy Picture of the Day and allows users to explore space photography, save favorites, and search by date or keyword. Built with HTML, CSS, and JavaScript.</p>
+        <p>Created by Anam Vaziri • Powered by <a href="https://api.nasa.gov/" target="_blank">NASA APIs</a></p>
+      </section>
+    </section>
+
+    <section id="viewer" class="tab-section">
+      <form id="apod-form">
+        <div class="form-row">
+          <input type="date" id="date" name="date" required />
+          <button type="submit">View Image</button>
+        </div>
+        <div class="button-row">
+          <button type="button" id="random-btn">Surprise Me</button>
+          <button type="button" id="toggle-theme">Switch to Light Theme</button>
+        </div>
+      </form>
+
+      <a id="download-btn" style="display: none;" download target="_blank">Download Image</a>
+
+      <div id="apod-result" class="card"></div>
+    </section>
+
+    <section id="favorites" class="tab-section">
+      <h2>Saved Favorites</h2>
+      <div id="favorites-list" class="favorites-grid">
+        <!-- Bookmarked APODs will be displayed here -->
       </div>
-      <div class="button-row">
-        <button type="button" id="random-btn">Surprise Me</button>
-        <button type="button" id="toggle-theme">Switch to Light Theme</button>
+    </section>
+
+    <section id="search" class="tab-section">
+      <h2>Search NASA Media</h2>
+      <form id="search-form" class="form-row">
+        <input type="text" id="search-query" placeholder="e.g., Mars, galaxy, astronaut..." required />
+        <button type="submit">Search</button>
+      </form>
+      <div id="search-results" class="favorites-grid">
+        <!-- Search results will be displayed here -->
       </div>
-    </form>
-
-    <a id="download-btn" style="display: none;" download target="_blank">Download Image</a>
-
-    <div id="apod-result" class="card"></div>
-
-    <section id="about">
-      <h3>About This Project</h3>
-      <p>This website uses NASA’s public Astronomy Picture of the Day API to showcase daily space photography and exploration. Built with HTML, CSS, and JavaScript for educational and creative purposes.</p>
-      <p>Created by Anam Vaziri • Powered by <a href="https://api.nasa.gov/" target="_blank">NASA API</a></p>
     </section>
   </div>
 
