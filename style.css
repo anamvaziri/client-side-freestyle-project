@@ -292,3 +292,32 @@
     }
   }
   
+  #apod-result {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: var(--panel);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  
+  #apod-result img,
+  #apod-result iframe {
+    max-width: 100%;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+  }
+  
+  #apod-result h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  #apod-result p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+    color: var(--text);
+  }
+  
