@@ -6,6 +6,9 @@
   <title>NASA APOD Viewer</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <meta property="og:title" content="NASA APOD Viewer" />
+  <meta property="og:description" content="Explore space, one photo at a time." />
+  <meta property="og:image" content="https://apod.nasa.gov/apod/image/2401/NGC2264_Hubble_960.jpg" />
 </head>
 <body>
   <div class="container">
@@ -17,10 +20,15 @@
     <form id="apod-form">
       <input type="date" id="date" name="date" required />
       <button type="submit">View Image</button>
+      <button type="button" id="random-btn">Surprise Me</button>
+      <button type="button" id="toggle-theme">Toggle Theme</button>
     </form>
+
+    <a id="download-btn" style="display: none;" download target="_blank">Download Image</a>
 
     <div id="apod-result" class="card"></div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
