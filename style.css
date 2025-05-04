@@ -190,3 +190,14 @@ body {
     opacity: 1;
   }
   
+  .apod-form {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .apod-form input, .apod-form button {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
