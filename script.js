@@ -96,35 +96,72 @@ randomBtn.addEventListener('click', () => {
 
 // === CAROUSEL LOAD ===
 async function loadCarousel() {
-  carouselTrack.innerHTML = '';
-  for (let i = 0; i < 7; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    const dateStr = date.toISOString().split('T')[0];
-
-    try {
-      const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${dateStr}`);
-      const data = await res.json();
-      if (data.media_type === 'image') {
-        const card = document.createElement('div');
-        card.classList.add('carousel-card');
-        card.innerHTML = `
-          <img src="${data.url}" alt="${data.title}" />
-          <h4 class="card-title">${data.title}</h4>
-          <small>${data.date}</small>
-          <button class="card-btn" onclick='saveFavoriteByData(${JSON.stringify({
-            title: data.title,
-            date: data.date,
-            url: data.url
-          })})'>Add to Favorites</button>
-        `;
-        carouselTrack.appendChild(card);
+    carouselTrack.innerHTML = '';
+  
+    const images = [];
+  
+    for (let i = 0; i < 7; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toISOString().split('T')[0];
+  
+      try {
+        const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${dateStr}`);
+        const data = await res.json();
+        if (data.media_type === 'image') {
+          images.push(data);
+        }
+      } catch (err) {
+        console.error("Carousel fetch failed:", err);
       }
-    } catch (err) {
-      console.error("Carousel fetch failed:", err);
     }
+  
+    // Add images to the track
+    images.forEach(data => {
+      const card = document.createElement('div');
+      card.classList.add('carousel-card');
+      card.innerHTML = `
+        <img src="${data.url}" alt="${data.title}" />
+        <h4 class="card-title">${data.title}</h4>
+        <small>${data.date}</small>
+        <button class="card-btn" onclick='saveFavoriteByData(${JSON.stringify({
+          title: data.title,
+          date: data.date,
+          url: data.url
+        })})'>Add to Favorites</button>
+      `;
+      carouselTrack.appendChild(card);
+    });
+  
+    // Clone cards to simulate infinite scroll
+    images.forEach(data => {
+      const card = document.createElement('div');
+      card.classList.add('carousel-card');
+      card.innerHTML = `
+        <img src="${data.url}" alt="${data.title}" />
+        <h4 class="card-title">${data.title}</h4>
+        <small>${data.date}</small>
+        <button class="card-btn" onclick='saveFavoriteByData(${JSON.stringify({
+          title: data.title,
+          date: data.date,
+          url: data.url
+        })})'>Add to Favorites</button>
+      `;
+      carouselTrack.appendChild(card);
+    });
   }
-}
+  
+  // === CAROUSEL NAVIGATION ===
+  const carouselPrev = document.getElementById('carousel-prev');
+  const carouselNext = document.getElementById('carousel-next');
+  
+  carouselPrev.addEventListener('click', () => {
+    carouselTrack.scrollBy({ left: -300, behavior: 'smooth' });
+  });
+  
+  carouselNext.addEventListener('click', () => {
+    carouselTrack.scrollBy({ left: 300, behavior: 'smooth' });
+  });
 
 // === FAVORITES SYSTEM ===
 function saveFavoriteByData(data) {
@@ -160,3 +197,56 @@ function removeFavoriteByUrl(url) {
   localStorage.setItem('favorites', JSON.stringify(favorites));
   renderFavorites();
 }
+
+// === SEARCH FUNCTIONALITY ===
+const searchForm = document.getElementById('search-form');
+const searchQueryInput = document.getElementById('search-query');
+const searchResults = document.getElementById('search-results');
+
+searchForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const query = searchQueryInput.value.trim();
+  if (!query) return;
+
+  searchResults.innerHTML = `<p>Searching...</p>`;
+  try {
+    const res = await fetch(`https://images-api.nasa.gov/search?q=${encodeURIComponent(query)}&media_type=image`);
+    const data = await res.json();
+    const items = data.collection.items;
+
+    if (!items.length) {
+      searchResults.innerHTML = `<p>No results found for "${query}".</p>`;
+      return;
+    }
+
+    searchResults.innerHTML = '';
+    items.slice(0, 15).forEach(item => {
+      const title = item.data[0].title;
+      const imageUrl = item.links?.[0]?.href;
+
+      const card = document.createElement('div');
+      card.classList.add('search-card');
+      card.innerHTML = `
+        <img src="${imageUrl}" alt="${title}" />
+        <h4>${title}</h4>
+        <button class="card-btn" onclick='saveFavoriteByData(${JSON.stringify({
+          title: title,
+          url: imageUrl
+        })})'>Add to Favorites</button>
+      `;
+      searchResults.appendChild(card);
+    });
+  } catch (err) {
+    console.error("Search failed:", err);
+    searchResults.innerHTML = `<p>Error fetching search results.</p>`;
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAPOD(today); // load today's picture
+    loadCarousel();   // load recent images
+  });
+
+
+
+  

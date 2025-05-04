@@ -103,6 +103,18 @@ body {
     background-color: #748D92;
     color: #000;
   }
+
+  .carousel-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 1rem;
+  }
+  
+  .carousel-track {
+    display: inline-flex;
+    gap: 1rem;
+  }
+  
   
   /* === APOD Viewer === */
   .apod-card {
@@ -199,5 +211,28 @@ body {
   .apod-form input, .apod-form button {
     padding: 0.5rem;
     font-size: 1rem;
+  }
+  
+  .carousel-wrapper {
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
+    margin: 2rem 0;
+  }
+  
+  .carousel-container {
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .carousel-track {
+    display: flex;
+    gap: 1rem;
+    animation: slideCarousel 30s linear infinite;
+  }
+  
+  @keyframes slideCarousel {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
   
