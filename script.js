@@ -31,50 +31,52 @@ tabs.forEach(tab => {
 
 // === FETCH SINGLE APOD ===
 async function fetchAPOD(date) {
-    resultDiv.innerHTML = `<div class="spinner"></div>`;
-    resultDiv.style.display = 'block';
-  
-    try {
-      const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`);
-      const data = await res.json();
-  
-      // Fallback handling if the API fails or no media is returned
-      if (!data.url || data.code) {
-        resultDiv.innerHTML = `
-          <h2>NASA's Astronomy Picture of the Day is currently unavailable.</h2>
-          <p>Please try again later or use the Random button to view an older image.</p>
-        `;
-        return;
-      }
-  
-      // Media rendering logic
-      let media = '';
-      let downloadLink = '';
-  
-      if (data.media_type === 'image') {
-        media = `<img src="${data.url}" alt="${data.title}" class="apod-image" />`;
-        downloadLink = `<a href="${data.hdurl || data.url}" download class="download-btn">Download Image</a>`;
-      } else if (data.media_type === 'video') {
-        media = `<iframe src="${data.url}" frameborder="0" allowfullscreen></iframe>`;
-      }
-  
+  resultDiv.innerHTML = `<div class="spinner"></div>`;
+  resultDiv.style.display = 'block';
+
+  try {
+    const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`);
+    const data = await res.json();
+
+    if (!data || !data.url || data.code) {
       resultDiv.innerHTML = `
-        <h2 class="apod-title">${data.title}</h2>
-        ${media}
-        ${downloadLink}
-        <p class="apod-description">${data.explanation}</p>
-        <button onclick='saveFavoriteByData(${JSON.stringify({
-          title: data.title,
-          date: data.date,
-          url: data.url
-        })})' class="card-btn">Add to Favorites</button>
+        <h2>NASA's APOD is currently unavailable.</h2>
+        <p>Try using the Random button or check back later.</p>
       `;
-    } catch (err) {
-      resultDiv.innerHTML = `<p>Error fetching APOD: ${err.message}</p>`;
-      console.error(err);
+      return;
     }
+
+    let media = '';
+    let downloadLink = '';
+
+    if (data.media_type === 'image') {
+      media = `<img src="${data.url}" alt="${data.title}" class="apod-image" />`;
+      downloadLink = `<a href="${data.hdurl || data.url}" download class="download-btn">Download Image</a>`;
+    } else if (data.media_type === 'video') {
+      media = `
+        <div class="video-container">
+          <iframe src="${data.url}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="video-note">This is a video. If it doesn't display, <a href="${data.url}" target="_blank">click here to view it externally</a>.</p>
+      `;
+    }
+
+    resultDiv.innerHTML = `
+      <h2 class="apod-title">${data.title}</h2>
+      ${media}
+      ${downloadLink}
+      <p class="apod-description">${data.explanation}</p>
+      <button onclick='saveFavoriteByData(${JSON.stringify({
+        title: data.title,
+        date: data.date,
+        url: data.url
+      })})' class="card-btn">Add to Favorites</button>
+    `;
+  } catch (err) {
+    resultDiv.innerHTML = `<p>Error fetching APOD: ${err.message}</p>`;
+    console.error(err);
   }
-  
+}
 
 // === FORM SUBMIT ===
 form.addEventListener('submit', e => {
