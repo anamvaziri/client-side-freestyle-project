@@ -162,7 +162,7 @@ body {
   }
   
   .apod-card img {
-    max-width: 90%;
+    max-width: 100%;
     height: auto;
     border-radius: 12px;
     margin: 1rem 0;
@@ -285,5 +285,50 @@ body {
   .apod-form input, .apod-form button {
     padding: 0.5rem;
     font-size: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    nav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+  
+    .tab-section {
+      padding: 1rem;
+    }
+  
+    .carousel-card,
+    .favorite-card,
+    .search-card {
+      width: 90vw;
+    }
+  
+    #about-section {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+  
+    #about-section::before {
+      display: none; /* hide vertical divider on mobile */
+    }
+  
+    .about {
+      padding-left: 0;
+    }
+  
+    .carousel-track {
+      animation: none; /* optional: stop sliding on mobile */
+      overflow-x: scroll;
+    }
   }
   
